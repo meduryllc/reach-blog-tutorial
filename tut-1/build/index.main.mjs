@@ -42,17 +42,17 @@ export async function Alice(ctc, interact) {
   const v19 = await ctc.creationTime();
   const v21 = ctc.selfAddress('Alice', false, stdlib.checkedBigNumberify('./index.rsh:22:13:application', stdlib.UInt_max, 20));
   const v23 = stdlib.protect(ctc0, await interact.createStream(), {
-    at: './index.rsh:24:60:application',
+    at: './index.rsh:25:60:application',
     fs: ['at ./index.rsh:22:13:application call to [unknown function] (defined at: ./index.rsh:22:17:function exp)'],
     msg: 'createStream',
     who: 'Alice'
     });
   
-  const txn1 = await (ctc.sendrecv(1, 2, stdlib.checkedBigNumberify('./index.rsh:28:9:dot', stdlib.UInt_max, 0), [ctc3, ctc0, ctc1], [v19, v23, v21], [stdlib.checkedBigNumberify('./index.rsh:decimal', stdlib.UInt_max, 0), []], [ctc0, ctc1], true, true, false, (async (txn1) => {
+  const txn1 = await (ctc.sendrecv(1, 2, stdlib.checkedBigNumberify('./index.rsh:30:9:dot', stdlib.UInt_max, 0), [ctc3, ctc0, ctc1], [v19, v23, v21], [stdlib.checkedBigNumberify('./index.rsh:decimal', stdlib.UInt_max, 0), []], [ctc0, ctc1], true, true, false, (async (txn1) => {
     const sim_r = { txns: [], mapRefs: [], mapsPrev: [], mapsNext: [] };
     
-    sim_r.prevSt = stdlib.digest(ctc5, [stdlib.checkedBigNumberify('./index.rsh:28:9:dot', stdlib.UInt_max, 0), v19]);
-    sim_r.prevSt_noPrevTime = stdlib.digest(ctc4, [stdlib.checkedBigNumberify('./index.rsh:28:9:dot', stdlib.UInt_max, 0)]);
+    sim_r.prevSt = stdlib.digest(ctc5, [stdlib.checkedBigNumberify('./index.rsh:30:9:dot', stdlib.UInt_max, 0), v19]);
+    sim_r.prevSt_noPrevTime = stdlib.digest(ctc4, [stdlib.checkedBigNumberify('./index.rsh:30:9:dot', stdlib.UInt_max, 0)]);
     const [v25, v26] = txn1.data;
     const v28 = txn1.time;
     const v24 = txn1.from;
@@ -62,9 +62,9 @@ export async function Alice(ctc, interact) {
       kind: 'to',
       tok: undefined
       });
-    sim_r.nextSt = stdlib.digest(ctc5, [stdlib.checkedBigNumberify('./index.rsh:29:15:after expr stmt semicolon', stdlib.UInt_max, 1), v28]);
-    sim_r.nextSt_noTime = stdlib.digest(ctc4, [stdlib.checkedBigNumberify('./index.rsh:29:15:after expr stmt semicolon', stdlib.UInt_max, 1)]);
-    sim_r.view = [ctc4, [stdlib.checkedBigNumberify('./index.rsh:29:15:after expr stmt semicolon', stdlib.UInt_max, 0)]];
+    sim_r.nextSt = stdlib.digest(ctc5, [stdlib.checkedBigNumberify('./index.rsh:31:15:after expr stmt semicolon', stdlib.UInt_max, 1), v28]);
+    sim_r.nextSt_noTime = stdlib.digest(ctc4, [stdlib.checkedBigNumberify('./index.rsh:31:15:after expr stmt semicolon', stdlib.UInt_max, 1)]);
+    sim_r.view = [ctc4, [stdlib.checkedBigNumberify('./index.rsh:31:15:after expr stmt semicolon', stdlib.UInt_max, 0)]];
     sim_r.isHalt = false;
     
     return sim_r;
@@ -100,17 +100,17 @@ export async function Bob(ctc, interact) {
   const v24 = txn1.from;
   ;
   const v32 = stdlib.protect(ctc2, await interact.seeStream(v25), {
-    at: './index.rsh:33:56:application',
-    fs: ['at ./index.rsh:31:13:application call to [unknown function] (defined at: ./index.rsh:31:17:function exp)'],
+    at: './index.rsh:36:56:application',
+    fs: ['at ./index.rsh:33:13:application call to [unknown function] (defined at: ./index.rsh:33:17:function exp)'],
     msg: 'seeStream',
     who: 'Bob'
     });
   
-  const txn2 = await (ctc.sendrecv(2, 1, stdlib.checkedBigNumberify('./index.rsh:35:9:dot', stdlib.UInt_max, 0), [ctc4, ctc2], [v28, v32], [stdlib.checkedBigNumberify('./index.rsh:decimal', stdlib.UInt_max, 0), []], [ctc2], true, false, false, (async (txn2) => {
+  const txn2 = await (ctc.sendrecv(2, 1, stdlib.checkedBigNumberify('./index.rsh:39:9:dot', stdlib.UInt_max, 0), [ctc4, ctc2], [v28, v32], [stdlib.checkedBigNumberify('./index.rsh:decimal', stdlib.UInt_max, 0), []], [ctc2], true, false, false, (async (txn2) => {
     const sim_r = { txns: [], mapRefs: [], mapsPrev: [], mapsNext: [] };
     
-    sim_r.prevSt = stdlib.digest(ctc5, [stdlib.checkedBigNumberify('./index.rsh:35:9:dot', stdlib.UInt_max, 1), v28]);
-    sim_r.prevSt_noPrevTime = stdlib.digest(ctc6, [stdlib.checkedBigNumberify('./index.rsh:35:9:dot', stdlib.UInt_max, 1)]);
+    sim_r.prevSt = stdlib.digest(ctc5, [stdlib.checkedBigNumberify('./index.rsh:39:9:dot', stdlib.UInt_max, 1), v28]);
+    sim_r.prevSt_noPrevTime = stdlib.digest(ctc6, [stdlib.checkedBigNumberify('./index.rsh:39:9:dot', stdlib.UInt_max, 1)]);
     const [v34] = txn2.data;
     const v36 = txn2.time;
     const v33 = txn2.from;
@@ -429,7 +429,7 @@ gtxn 1 Sender
 assert
 // Run body
 // "CheckPay"
-// "./index.rsh:28:9:dot"
+// "./index.rsh:30:9:dot"
 // "[]"
 gtxn 3 TypeEnum
 int pay
@@ -561,7 +561,7 @@ gtxn 1 Sender
 assert
 // Run body
 // "CheckPay"
-// "./index.rsh:35:9:dot"
+// "./index.rsh:39:9:dot"
 // "[]"
 gtxn 3 TypeEnum
 int pay
@@ -812,7 +812,7 @@ const _ETH = {
     "type": "receive"
   }
 ]`,
-  Bytecode: `0x608060408190527f49ff028a829527a47ec6839c7147b484eccf5a2a94853eddac09cef44d9d4e9e90600090a160408051602080820183524382528251808201845260008082529251815283518083018490529051818501528351808203850181526060909101909352825192019190912090556102a1806100826000396000f3fe60806040526004361061002d5760003560e01c8063cdcaf84614610039578063cff5da111461004e57610034565b3661003457005b600080fd5b61004c6100473660046101a6565b610061565b005b61004c61005c3660046101be565b61011c565b60408051600060208201528235918101919091526060016040516020818303038152906040528051906020012060001c6000541461009e57600080fd5b6000805534156100ad57600080fd5b7f1070359a6ac4393af35b598c864fc95346f3632bf5e15e54de2c3778a1676b95816040516100dc91906101cf565b60405180910390a1506040805160208082018352438252825160018183015291518284015282518083038401815260609092019092528051910120600055565b60408051600160208201528235918101919091526060016040516020818303038152906040528051906020012060001c6000541461015957600080fd5b60008055341561016857600080fd5b7f12bfe1c7b9111fce6718feb7c2d10776024f3d35e03ad4bb55c7bc205788b769816040516101979190610241565b60405180910390a16000805533ff5b600061040082840312156101b8578081fd5b50919050565b6000604082840312156101b8578081fd5b813581526104008101602080830181850160005b601e81101561021157813560ff81168082146101fe57600080fd5b84525091830191908301906001016101e3565b506103e092505050838101356001600160a01b03811680821461023357600080fd5b808386015250505092915050565b8135815260408101602083013580151580821461025d57600080fd5b80602085015250509291505056fea264697066735822122093d25aec51c7a5611379809c7f6eef9d00834c9fc432e11688c824400bc6bc4864736f6c63430008020033`,
+  Bytecode: `0x608060408190527f49ff028a829527a47ec6839c7147b484eccf5a2a94853eddac09cef44d9d4e9e90600090a160408051602080820183524382528251808201845260008082529251815283518083018490529051818501528351808203850181526060909101909352825192019190912090556102a1806100826000396000f3fe60806040526004361061002d5760003560e01c8063cdcaf84614610039578063cff5da111461004e57610034565b3661003457005b600080fd5b61004c6100473660046101a6565b610061565b005b61004c61005c3660046101be565b61011c565b60408051600060208201528235918101919091526060016040516020818303038152906040528051906020012060001c6000541461009e57600080fd5b6000805534156100ad57600080fd5b7f1070359a6ac4393af35b598c864fc95346f3632bf5e15e54de2c3778a1676b95816040516100dc91906101cf565b60405180910390a1506040805160208082018352438252825160018183015291518284015282518083038401815260609092019092528051910120600055565b60408051600160208201528235918101919091526060016040516020818303038152906040528051906020012060001c6000541461015957600080fd5b60008055341561016857600080fd5b7f12bfe1c7b9111fce6718feb7c2d10776024f3d35e03ad4bb55c7bc205788b769816040516101979190610241565b60405180910390a16000805533ff5b600061040082840312156101b8578081fd5b50919050565b6000604082840312156101b8578081fd5b813581526104008101602080830181850160005b601e81101561021157813560ff81168082146101fe57600080fd5b84525091830191908301906001016101e3565b506103e092505050838101356001600160a01b03811680821461023357600080fd5b808386015250505092915050565b8135815260408101602083013580151580821461025d57600080fd5b80602085015250509291505056fea2646970667358221220ebf80d726852f4874d5ef57b3d996d755c26fb9b5fb3eaf855c55153e91a04b564736f6c63430008020033`,
   BytecodeLen: 803,
   Which: `oD`,
   deployMode: `DM_constructor`,
