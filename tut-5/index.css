@@ -1,0 +1,168 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    overflow-x:hidden
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+  color: #28363D;
+  
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+input[type=number] {
+  font-size: calc(10px + 2vmin);
+  width: 4em;
+}
+
+input[type=text] {
+  border-radius: 10px;
+  width: 50em;
+}
+
+button {
+  display: inline-block;
+  background:#D7772E;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+textarea {
+  width: 50%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.ContractInfo {
+  font-size: 1.5vw;
+  text-align: left;
+  padding: 2vw;
+}
+
+.Buttons {
+  margin-left: 2%;
+  width:100%;
+  margin-bottom:50px;
+  margin-top: 5px;
+}
+
+.Icons {
+  width:30px;
+  height:30px;
+  vertical-align:top;
+  margin-left:20px
+}
+
+.Card {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  margin-right: 10%;
+  margin-left: 10%;
+  border: 2px solid steelblue;
+  padding: 10px;
+  width: 85vw;
+}
+
+
+.CardAttach {
+  margin-top: 20px;
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  margin-right: 10%;
+  margin-left: 10%;
+  border: 2px solid steelblue;
+  padding: 10px;
+}
+
+.WideCard {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  width: 30vw;
+  margin-left: 35%;
+  border: 2px solid steelblue;
+  padding: 10px;
+}
+
+.SubscriberTweet {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  margin-left: 35%;
+  border: 2px solid steelblue;
+  padding: 10px;
+  width: 500px;
+  text-align: left;
+  margin-top: 2%;
+}
+
+.CardDeploy {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  width: 40vw;
+  margin-left: 30%;
+  border: 2px solid steelblue;
+  padding: 10px;
+  
+}
+
+.Tweet {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  border: 2px solid steelblue;
+  padding: 10px;
+  width: 500px;
+  margin-left: 35%;
+  text-align: left;
+  margin-top:2%;
+}
+
+.CreateOrSubscribe {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  width: 50vw;
+  margin-left: 25%;
+  border: 2px solid steelblue;
+  padding: 10px;
+}
+
+
+
+
+
+
+
+
+
