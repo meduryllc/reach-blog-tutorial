@@ -49,7 +49,7 @@ Line 10 defines a default name for a stream.
 
 We start defining App as a React component, and tell it what to do once it mounts, which is the React term for starting.
 
-# Connect Account Image
+![Connect Account](images/AppViews.ConnectAccount.png) <center> *Figure 1: Connecting to an account* </center>
 
 ```
 12    class App extends React.Component {
@@ -67,16 +67,16 @@ We start defining App as a React component, and tell it what to do once it mount
 24        let isConnected = false;
 25        try{
 26
-27        await reach.setProviderByName('TestNet');
-28        await reach.setSignStrategy('AlgoSigner');
-29        const acc = await reach.getDefaultAccount();
-30        const balAtomic = await reach.balanceOf(acc);
-31        const bal = reach.formatCurrency(balAtomic, 4);
-32        this.setState({acc, bal});
-33        isConnected = true;
+27              await reach.setProviderByName('TestNet');
+28              await reach.setSignStrategy('AlgoSigner');
+29              const acc = await reach.getDefaultAccount();
+30              const balAtomic = await reach.balanceOf(acc);
+31              const bal = reach.formatCurrency(balAtomic, 4);
+32              this.setState({acc, bal});
+33              isConnected = true;
 34        
 35        }catch(error){
-36        isConnected = false;
+36              isConnected = false;
 37        
 38        }
 39        return isConnected;
@@ -87,6 +87,8 @@ We start defining App as a React component, and tell it what to do once it mount
 On line 15, we initialize the component state to display the ConnectAccount view (figure 1).
 
 On lines 18 through 20, we hook into React’s componentDidMount lifecycle event, which is called when the component starts. Here, we render the `DeployerOrAttacher` view from /views/AppViews.js
+
+![DeployerOrAttacher](images/AppViews.DeployerOrAttacher.png) <center> *Figure 2: Get Started View* </center>
 
 Line 23 defines the `connectToAccount` method which is invoked when the user tries to deploy or connect to a smart-contract. 
 
@@ -110,7 +112,7 @@ On line 29, we use getDefaultAccount, which accesses the default browser account
 52        
 53        if(isConnected) this.setState({home:false, subscriber: false, poster:true, view: 'Wrapper', ContentView: Poster}); 
 54        else {
-55        this.setState({home:false, view: 'NoAlgosigner'});
+55              this.setState({home:false, view: 'NoAlgosigner'});
 56        }
 57    }
 58    aboutUs() {this.setState({home:false, view:'AboutUs'})}
@@ -124,6 +126,8 @@ Line 43 defines the `fundAccount` method for receiving some test network funds t
 Line 47 defines the `skipFundAccount` method which is invoked if your account has enough funds to interact with the smart contract.
 
 Line 49 defines the `selectJoin` method for joining a stream
+
+![NewStream](images/Poster.CreateStream.png) <center> *Figure 3: Creating a new stream* </center>
 
 Line 50 defines the `selectCreate` method to deploy a stream after connecting to an account selected by the user.
 
@@ -171,16 +175,16 @@ Next, we will define Poster as a React component for Alice, which extends User.
 96    
 97    selectView() {
 98        
-99        if(!this.state.sawFirstPost) this.setState({home:false, poster: false, subscriber: true, view: 'Wrapper', ContentView: Subscriber});
-100        else {this.setState({home:false, poster: false, joinStream:false, subscriber: true, seePost:false, view: 'Wrapper', ContentView: Subscriber})}
+99              if(!this.state.sawFirstPost) this.setState({home:false, poster: false, subscriber: true, view: 'Wrapper', ContentView: Subscriber});
+100             else {this.setState({home:false, poster: false, joinStream:false, subscriber: true, seePost:false, view: 'Wrapper', ContentView: Subscriber})}
 101    }
 102    selectCreate() { 
-103        if(this.state.createdFirstPost) this.setState({view: 'PostThought'}); 
-104       else this.setState({view: 'CreateStream'});
+103             if(this.state.createdFirstPost) this.setState({view: 'PostThought'}); 
+104             else this.setState({view: 'CreateStream'});
 105    }
 106    async post(){
 107        const thought = await new Promise(resolvePostedP => {
-108        this.setState({view: 'PostThought', posts: this.state.posts, resolvePostedP});
+108             this.setState({view: 'PostThought', posts: this.state.posts, resolvePostedP});
 109        });
 110        this.setState({view: 'SeePost', createdFirstPost:true, posts: [...this.state.posts, thought], thought});
 111        return thought;
@@ -188,7 +192,7 @@ Next, we will define Poster as a React component for Alice, which extends User.
 113
 114    async continueStream(){
 115        const decision = await new Promise(resolveContinueP => {
-116        this.setState({view: 'ContinueOrStop',  resolveContinueP});
+116             this.setState({view: 'ContinueOrStop',  resolveContinueP});
 117        });
 118        return decision;
 119    }
@@ -212,6 +216,9 @@ Line 75 sets the view to `CreateStream`
 
 Line 78 defines the method to deploy the contract and switches the view to `WaitingForAttacher` while atleast one subscriber joins the stream.
 
+
+![Deploy](images/Poster.Deploy.png) <center> *Figure 4: Deploying the smart contract* </center>
+
 Line 86 defines the `setStreamName` method to ask the creator set a name to the stream they wish to deploy.
 
 Line 89 returns the name of the stream chosen by the user to the reach program (backend)
@@ -220,9 +227,17 @@ Line 93 switches the view to `Subscriber` if the user wishes to post to a stream
 
 Line 97 defines a similar `selectCreate` method as defined earlier, except this method can also allow users to post if they've already created a stream.
 
+
+![PostThought](images/Poster.PostThought.png) <center> *Figure 5: Posting thoughts to a stream* </center>
+
 On lines 106 through 111, we set the component state to display the `PostThought` view, and wait for a Promise which can be resolved via user interaction.
 
+
+![PostingMoreThanOneThought](images/Poster.PostThought(1+Thoughts).png) <center> *Figure 6: Your posts* </center>
+
 Line 121 resolves this promise.
+
+![ContinueOrStop](images/Poster.ContinueOrStop.png) <center> *Figure 5: Posting thoughts to a stream* </center>
 
 Similarly, lines 114 through 118 sets the component state to display `ContinueOrStop` view, and wait for a Promise which can be resolved via user interaction.
 
@@ -261,18 +276,18 @@ Similarly, we also define Subscriber as a React component for Bob, also extendin
 159     subscribe(yesOrNo) {
 160            
 161         if(yesOrNo === 'Yes'){
-162            this.state.resolveAcceptedP();
-163            this.setState({view: 'WaitingForTurn', joining:true});
-164        }
-165            else{
-166            this.setState({view: 'Attach'});
-167            }
-168    }
+162             this.state.resolveAcceptedP();
+163             this.setState({view: 'WaitingForTurn', joining:true});
+164         }
+165         else{
+166             this.setState({view: 'Attach'});
+167         }
+168     }
 169
 170    
 171    async seeStream(streamName){
 172        await new Promise(resolveAcceptedP => {
-173        this.setState({view: 'ViewStreamName', streamName, resolveAcceptedP});
+173             this.setState({view: 'ViewStreamName', streamName, resolveAcceptedP});
 174        });
 175        return true;
 176    }
@@ -292,9 +307,16 @@ Similarly, we also define Subscriber as a React component for Bob, also extendin
 189    }
 ```
 
+![Attach](images/Subscriber.Attach.png) <center> *Figure 7: Subscribing to a stream* </center>
+
 The contructor method checks if the user is already subscribed to a stream, and if they are, the componenet state will be set to `ViewPost` and if they aren't subscribed to any stream yet, the component state will be set to `Attach`.
 
+
+![ViewStreamName](images/Subscriber.ViewStreamName.png) <center> *Figure 8: Subscribing to the stream* </center>
+
 Line 143 defines the method `joinNewStream` to join a different stream than what they've previously joined.
+
+![ViewStreamName](images/Subscriber.SeePost.png) <center> *Figure 9: Viewing Posts </center>
 
 Line 148 defines the method `viewPosts` allowing subscribers to view all the posts posted to the streams they've subscribed to.
 
@@ -305,6 +327,8 @@ Line 159 defines the `subcribe` method which accepts the decision of whether or 
 Line 159 through 164 defines the `seeStream` method for displaying the name of the stream before joining. This method also waits for a Promise which can be resolved via user interaction.
 
 On lines 166 through 174, we define the `seeMessage` method to store newly created posts by the author and set the component state to `ViewPost` to display the posts to the subscribers.
+
+![EndStream](images/EndStream.png) <center> *Figure 10: Stopping the stream* </center>
 
 ```
 191 renderDOM(<App />);
