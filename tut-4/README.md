@@ -410,7 +410,7 @@ Bob has seen the post: This is my first post in Microblog application created by
 Bob has seen the post: This microblog application was developed using Reach and deployed on Algorand created by 0x8CF455187E43Fc2f6068bb2a1Cd21baC64d095E2 in the stream Microblog
 Bob has seen that the stream has ended
 
-``
+```
 
 In this step, we made a command-line interface for our Reach program. In the next step, we’ll replace this with a Web interface for the same Reach program.
 
