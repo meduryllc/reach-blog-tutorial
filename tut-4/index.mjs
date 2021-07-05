@@ -1,4 +1,3 @@
-/*
 import { loadStdlib } from '@reach-sh/stdlib';
 import * as backend from './build/index.main.mjs';
 import { ask, yesno, done } from '@reach-sh/stdlib/ask.mjs';
@@ -12,86 +11,7 @@ import { ask, yesno, done } from '@reach-sh/stdlib/ask.mjs';
   );
   const who = isAlice ? 'Alice' : 'Bob';
 
-  console.log(`Joining the microblog as ${who}`);
-
-  let acc = null;
-  const createAcc = await ask(
-    `Would you like to create an account? (only possible on devnet)`,
-    yesno
-  );
-
-  if (createAcc) {
-    acc = await stdlib.newTestAccount(stdlib.parseCurrency(1000));
-  } else {
-    const secret = await ask(
-      `What is your account secret?`,
-      (x => x)
-    );
-    acc = await stdlib.newAccountFromSecret(secret);
-  }
-
-  let ctc = null;
-  const deployCtc = await ask(
-    `Do you want to deploy the contract? (y/n)`,
-    yesno
-  );
-
-  if (deployCtc) {
-    ctc = acc.deploy(backend);
-    const info = await ctc.getInfo();
-    console.log(`The contract is deployed as = ${JSON.stringify(info)}`);
-  } else {
-    const info = await ask(
-      `Please paste the contract information:`,
-      JSON.parse
-    );
-    ctc = acc.attach(backend, info);
-  }
-
-  const interact = { ...stdlib.hasRandom };
-
-  
-  if (isAlice) {
-
-    interact.createStream = () => {
-      console.log('Here');
-    }
-
-  } 
-  else {
-    
-    interact.seeStream = async (name) => {
-      const accepted = await ask(
-        `Do you wish to subscribe to: ${name}?`,
-        yesno
-      );
-      if (accepted) {
-        return;
-      } else {
-        process.exit(0);
-      }
-    };
-    
-  }
-  
-  
-
-})();
-*/
-import { loadStdlib } from '@reach-sh/stdlib';
-import * as backend from './build/index.main.mjs';
-import { ask, yesno, done } from '@reach-sh/stdlib/ask.mjs';
-
-(async () => {
-  const stdlib = await loadStdlib();
-
-  const isAlice = await ask(
-    `Are you Alice?`,
-    yesno
-  );
-  const who = isAlice ? 'Alice' : 'Bob';
-
-  console.log(`Starting Rock, Paper, Scissors! as ${who}`);
+  console.log(`Using Microblog as ${who}`);
 
   let acc = null;
   const createAcc = await ask(
@@ -139,13 +59,6 @@ import { ask, yesno, done } from '@reach-sh/stdlib/ask.mjs';
   };
 
   if (isAlice) {
-    /*
-    const amt = await ask(
-      `How much do you want to wager?`,
-      stdlib.parseCurrency
-    );
-    interact.wager = amt;
-    */
     interact.createStream = async () => {
       const nameOfStream = await ask(
         `Name of the stream you would like to create?`,
@@ -170,7 +83,7 @@ import { ask, yesno, done } from '@reach-sh/stdlib/ask.mjs';
   if(isAlice){
     interact.post = async () => {
       const post = await ask(
-        `Create your post:?`,
+        `Create your post:`,
         (thought => thought)
       );
       return post

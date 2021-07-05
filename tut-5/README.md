@@ -1,4 +1,4 @@
-In this section, we won’t be making any changes to the Reach program. Instead, we’ll built a Web interface for our microblogging application.
+In the last section, we made Microblog run as a command-line application, without any changes to the Reach program. In this section, we won’t be making any changes to the Reach program. Instead, we’ll build a Web interface for our microblogging application.
 
 We will use React.js for this tutorial, but the same principles apply to any Web framework.
 

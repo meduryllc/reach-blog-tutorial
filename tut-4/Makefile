@@ -26,3 +26,7 @@ down:
 .PHONY: run-alice
 run-alice:
 	docker-compose run --rm alice
+
+.PHONY: run-bob
+run-bob:
+	docker-compose run --rm bob
