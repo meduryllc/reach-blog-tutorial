@@ -1,7 +1,7 @@
-In the section, we'll have a user post to the stream that they created earlier. The subscribers can also view the post created by the author
+In the section, we'll have a user post to the stream that was created earlier in [tut-1](https://github.com/meduryllc/reach-blog-tutorial/tree/master/tut-1). And enable subscribers of this stream to be able to view the posts created by the stream owner.
 
 
-To do this, we first need to modify [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29) to enable the authors to post and subscribers to view the posts.
+First, we need to modify [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29) to enable the authors to post text and subscribers to view the posts.
 
 ```
 1 'reach 0.1';
@@ -15,9 +15,9 @@ To do this, we first need to modify [participant interact interface](https://doc
 
 ```
 
-We have added a `post` method on line 7 which returns a maximum of 140 character string from the [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29).
+We added a `post` method on line 7 which returns a string (max 140 chars) from the [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29).
 
-Similarly, we modify the subscriber interface to allow them to view the posts created by the author
+Similarly, we modify the subscriber interface to allow viewing the posts created by the author.
 
 ```
 
@@ -28,10 +28,7 @@ Similarly, we modify the subscriber interface to allow them to view the posts cr
 13 }
 
 ```
-
-  
-
-Line 12 declares the method `seeMessage` which accepts the following data as parameters: 140 character post, author of the post, and name of the stream being posted to. This data is sent to the [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29) for the subscribers to view the post.
+Line 12 declares the method `seeMessage` which accepts the following parameters: 1) 140 character post, 2) author of the post, and 3) name of the stream being posted to. This data is sent to the [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29) when subscribers try to view a post.
 
 ```
 16 export const main = Reach.App(
@@ -63,11 +60,11 @@ Line 12 declares the method `seeMessage` which accepts the following data as par
 
 ```
 
-Line 45 accepts the post from the `post` method of [interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29) interface and declassifies it to make it public. Alice then published the message on Line 49.
+Line 45 accepts the post from the `post` method of [interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29) interface and declassifies it to make it public. This post is then published by Alice on Line 49.
 
-Bob can view the post created by Alice by executing `seeMessage` method that takes `message` which is the post published by Alice recently, `streamName` identifying the stream Alice has posted to and `creator`, the address used by Alice to create this post.
+Bob will then view the post created by Alice by executing `seeMessage` method with following parameters:  `message`, which is the post published by Alice recently, `streamName`, that identifies the stream Alice has just posted to, and `creator`, the address used by Alice to create this post.
 
-In our [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29), we must define the newly created methods to actually view the changes. 
+Next, in our [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29), we will define the newly created methods to display changes via console logs. 
 ```
 
 14 await Promise.all([
@@ -99,22 +96,14 @@ In our [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29), we
 
 ```
 Lines 22 through 26 define the `post` method for Alice to send the post to the reach program.  
-Lines 34 through 36 defines a simple `seeMessage` method for Bob to view the post created by the author.
+Lines 34 through 36 define a simple `seeMessage` method for Bob to view the post created by the author.
 
-We can now run the program and view Alice sending a post and Bob viewing it:
-
-  
+We can now run the program to observe Alice sending a post and Bob viewing it:
 
 ```
 $ ./reach run
 ```
-
-  
-
-You can observe output similar to:
-
-
-
+Your output may be similar to:
 ```
 $ ./reach run
 Alice created a stream 'Microblog on Algorand'
@@ -122,7 +111,4 @@ Bob noticed that a stream 'Microblog on Algorand' was created and is subscribing
 Alice is posting 'This is my first post on this microblog'
 Bob saw that Alice with address 0xAE49863cef5A2CC3163a25218262e66a1e2a5ED1 has posted 'This is my first post on this microblog' to the stream 'Microblog on Algorand'
 ```
-
-  
-
-In the next step, we will use a while loop to keep posting to the same stream. 
+In the next step, we will use a while loop to enable posting to the same stream. 
