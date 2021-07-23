@@ -9,9 +9,10 @@ In this tutorial, the creator of the stream is expected to name the stream and s
 2
 3 // Poster interface; poster of a stream can only execute these methods
 4 const  Poster = {
-5	createStream : Fun([], Bytes(30))
+5	createStream : Fun([], Bytes(30)),
 6	streamName :  Bytes(30)
 7 };
+8
 ```
 Lines 4 through 7 define a  [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29)  for the creator of the stream. In this case, the interact interface provides: 1) one method: `createStream()`, that returns a string of no more than 30 characters, and 2) a constant `streamName`, used to set the name of the stream.
 
@@ -34,9 +35,9 @@ Lines 10 through 12 define a  [participant interact interface](https://docs.reac
 20		(A, B) => {
 21			......
 			......
-37			exit();
-38		}
-39 );
+41			exit();
+42		}
+43 );
 ```
 [//]: <> (This below line doesn't make sense )
 
@@ -45,6 +46,7 @@ Line 19 uses this interface for both participants. Because of this line, [intera
 Before continuing with the Reach application, let’s move over to the JavaScript interface and implement these methods in our [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29).
 
 ```
+13
 14 await  Promise.all([
 15	backend.Alice(ctcAlice, {
 16		createStream : () => {
@@ -123,5 +125,6 @@ $ ./reach run
 Alice created a stream 'Microblog on Algorand'
 Bob noticed that a stream 'Microblog on Algorand' was created and is subscribing to it
 ```
+__Note__: Use `export REACH_CONNECTOR_MODE=ALGO` to run this app on Algorand test network. Execution on Algorand is expected to be slower than on Ethereum dev net and it may take upto 30 seconds to complete.
 
 In the next step, we will start posting to the stream that we created.

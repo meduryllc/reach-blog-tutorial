@@ -1,14 +1,10 @@
-In the last section, we made Microblog run as a command-line application, without any changes to the Reach program. In this section, we won’t be making any changes to the Reach program. Instead, we’ll build a Web interface for our microblogging application.
+In the last section, we made Microblog run as a command-line application, without any changes to the Reach program. In this section,  we’ll be focussing on building a Web interface for our microblogging application. This section does not involve making any changes to the Reach program.
 
-We will use React.js for this tutorial, but the same principles apply to any Web framework.
+We will use React.js for this tutorial, but the same principles apply to any Web framework. Similarly, instructions here are meant for deploying (and testing) with Algorand but same principles apply for deploying on Ethereum. 
 
-Similarly, in this tutorial, we assume that we will be deploying (and testing) with Algorand. Reach Web applications rely on the Web browser to provide access to a consensus network account and its associated wallet. We will be using Algosigner wallet to sign our transactions. If you want to test this code, you’ll need to install it and set it up. Furthermore, Algosigner does not support multiple active accounts, so if you want to test Microblog locally, you’ll need to have two separate Chrome browser instances: one to act as Alice and another to act as Bob.
+Reach Web applications rely on the Web browser to provide access to a consensus network account and its associated wallet. We will be using Algosigner wallet to sign our transactions. If you want to test this code, you’ll need to first install it and set it up. Furthermore, Algosigner does not support multiple active accounts, so if you want to test Microblog locally, you’ll need to have two separate Chrome browser instances: one to act as Alice and another to act as Bob.
 
 This code is supplemented with index.css and some views. These details are not specific to Reach, and are fairly trivial, so we will not explain the specifics of those files. If you run this locally, you’ll want to download those files. Your directory should look like:
-
-—
-
-This code is supplemented with index.css and some views. If you run this locally, you’ll want to download those files. Your directory should look like:
 
 ```
 index.css
@@ -21,7 +17,7 @@ views
     -render.js
 ```
 
-We will focus on index.js file as index.rsh file is the same as previous section.
+The index.rsh file remains the same as previous section and we will make changes to index.js file.
 
 ```
 1    import React from 'react';
@@ -32,22 +28,22 @@ We will focus on index.js file as index.rsh file is the same as previous section
 6    import './index.css';
 7    import * as backend from './build/index.main.mjs';
 8    import * as reach from '@reach-sh/stdlib/ALGO';
+9 
 ```
 On lines 1 thru 6, we import our view code and CSS. On line 7, we import the compiled backend. On line 8, we import the stdlib as reach.
 
 To run on Ethereum, change the import on line 8.
 
 ```
-import * as reach from '@reach-sh/stdlib/ETH'
+8 import * as reach from '@reach-sh/stdlib/ETH'
 ```
 
+Line 10 defines a default name for a stream. 
 ```
 10 const defaults = {defaultStream: 'Microblog Project'};
 ```
 
-Line 10 defines a default name for a stream. 
-
-We start defining App as a React component, and tell it what to do once it mounts, which is the React term for starting.
+We start defining the App as a React component, and tell it what to do once it mounts, which is the React term for starting.
 
 ![Connect Account](images/AppViews.ConnectAccount.png) <center> *Figure 1: Connecting to an account* </center>
 
@@ -86,15 +82,16 @@ We start defining App as a React component, and tell it what to do once it mount
 
 On line 15, we initialize the component state to display the ConnectAccount view (figure 1).
 
-On lines 18 through 20, we hook into React’s componentDidMount lifecycle event, which is called when the component starts. Here, we render the `DeployerOrAttacher` view from /views/AppViews.js
+On lines 18 through 20, we hook into React’s componentDidMount lifecycle event, which is invoked when the component starts. Here, we render the `DeployerOrAttacher` view from /views/AppViews.js
 
 ![DeployerOrAttacher](images/AppViews.DeployerOrAttacher.png) <center> *Figure 2: Get Started View* </center>
 
 Line 23 defines the `connectToAccount` method which is invoked when the user tries to deploy or connect to a smart-contract. 
 
 Line 27 sets the default network to Algorand Testnet 
-Line 28 indicates that we use Algosigner to sign our transactions. 
-Note: Algosigner is currently only supported on Chrome, so if you wish to try this out on other browser, comment this line.
+
+Line 28 indicates that we use Algosigner to sign our transactions.<br/>
+__Note:__ Algosigner is currently only supported on Chrome so if you wish to try this out on other browser, comment this line.
 
 On line 29, we use getDefaultAccount, which accesses the default browser account. 
 
@@ -214,7 +211,7 @@ Next, we will define Poster as a React component for Alice, which extends User.
 ```
 Line 75 sets the view to `CreateStream`
 
-Line 78 defines the method to deploy the contract and switches the view to `WaitingForAttacher` while atleast one subscriber joins the stream.
+Line 78 defines the method to deploy the contract and switches the view to `WaitingForAttacher` as long as atleast one subscriber joins the stream.
 
 
 ![Deploy](images/Poster.Deploy.png) <center> *Figure 4: Deploying the smart contract* </center>
@@ -245,7 +242,7 @@ Lines 123 through 126 resolve this promise.
 
 Line 129 defines the `help` method to display the terminology and process of utilizing this application
 
-Finally, lines 133 renders appropriate views from `DeployerViews`.
+Finally, line 133 renders appropriate views from `DeployerViews`.
 
 Similarly, we also define Subscriber as a React component for Bob, also extending User.
 

@@ -1,4 +1,3 @@
-
 'reach 0.1';
 
 //Poster interface; poster of a stream can only execute these methods
@@ -11,6 +10,7 @@ const Poster = {
 const Subscriber = {
   seeStream: Fun([Bytes(30)], Bool)
 }
+
 
 //Main logic of the DApp
 export const main = Reach.App(
@@ -39,7 +39,6 @@ export const main = Reach.App(
       B.publish(subscribe);
       commit();
       exit(); 
-    
     }
 );
 

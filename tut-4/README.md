@@ -1,8 +1,8 @@
-In the last section, we enabled our Poster to continue posting until they wished to stop. In this section, we won’t be making any changes to the Reach program itself. Instead, we’ll go under the covers of reach run, as well as build a version of our microblog that is interactive and can be played away from a private developer test network.
+In the last section, we enabled the Poster to continue posting until they wished to stop. In this section, we won’t be making any changes to the Reach program itself. Instead, we’ll go under the covers of reach run, as well as build an interactive version of our microblog that is deployed on a private developer test network.
 
 —
 
-In the past, when we’ve run `./reach run`, it would create a Docker image just for our Reach program that contained a temporary Node.js package connecting our JavaScript frontend to the Reach standard library and a fresh instance of a private developer test network. Since in this section, we will customize this and build a non-automated version of Rock, Paper, Scissors!, as well as give the option to connect to a real Ethereum network
+In the past, when we’ve run `./reach run`, it would create a Docker image just for our Reach program that contained a temporary Node.js package connecting our JavaScript frontend to the Reach standard library and a fresh instance of a private developer test network. In this section, we will customize this and build a non-automated version of Microblog, as well as enable the option to connect to a real Ethereum network.
 
 We’ll start by running
 ```
@@ -18,13 +18,15 @@ which will automatically generate the following files for us:
 
 `Makefile` — A Makefile that easily rebuilds and runs the Docker image.
 
-We’re going to leave the first two files unchanged. You can look at them at tut-8/package.json and tut-8/Dockerfile, but the details aren’t especially important. However, we’ll customize the other two files.
+We’re going to leave the first two files unchanged and their details are out of scope for this tutorial but for more details, they can be found at [tut-4/package.json](https://github.com/meduryllc/reach-blog-tutorial/blob/master/tut-4/package.json) and [tut-4/Dockerfile](https://github.com/meduryllc/reach-blog-tutorial/blob/master/tut-4/Dockerfile). 
 
-First, let’s look at the tut-4/docker-compose.yml file:
+We’ll customize the other two files.
+
+First, let’s look at the [tut-4/docker-compose.yml](https://github.com/meduryllc/reach-blog-tutorial/blob/master/tut-4/docker-compose.yml) file:
 ```
 1    version: '3.4'
 2    x-app-base: &app-base
-3      image: reachsh/reach-app-tut-8:latest
+3      image: reachsh/reach-app-tut-4:latest
 4    services:
 5      devnet-cfx:
 6        image: reachsh/devnet-cfx:0.1
@@ -48,14 +50,14 @@ First, let’s look at the tut-4/docker-compose.yml file:
 24          - POSTGRES_USER=algogrand
 25          - POSTGRES_PASSWORD=indexer
 26          - POSTGRES_DB=pgdb
-27      reach-app-tut-8-ETH-live:
+27      reach-app-tut-4-ETH-live:
 28        <<: *app-base
 29        environment:
 30          - REACH_DEBUG
 31          - REACH_CONNECTOR_MODE=ETH-live
 32          - ETH_NODE_URI
 33          - ETH_NODE_NETWORK
-34      reach-app-tut-8-ETH-test-dockerized-geth: &default-app
+34      reach-app-tut-4-ETH-test-dockerized-geth: &default-app
 35        <<: *app-base
 36        depends_on:
 37          - ethereum-devnet
@@ -63,7 +65,7 @@ First, let’s look at the tut-4/docker-compose.yml file:
 39          - REACH_DEBUG
 40          - REACH_CONNECTOR_MODE=ETH-test-dockerized-geth
 41          - ETH_NODE_URI=http://ethereum-devnet:8545
-42      reach-app-tut-8-ALGO-live:
+42      reach-app-tut-4-ALGO-live:
 43        <<: *app-base
 44        environment:
 45          - REACH_DEBUG
@@ -75,7 +77,7 @@ First, let’s look at the tut-4/docker-compose.yml file:
 51          - ALGO_INDEXER_SERVER
 52          - ALGO_INDEXER_PORT
 53          - ALGO_FAUCET_PASSPHRASE
-54      reach-app-tut-8-ALGO-test-dockerized-algod:
+54      reach-app-tut-4-ALGO-test-dockerized-algod:
 55        <<: *app-base
 56        depends_on:
 57          - algorand-devnet
@@ -86,7 +88,7 @@ First, let’s look at the tut-4/docker-compose.yml file:
 62          - ALGO_PORT=4180
 63          - ALGO_INDEXER_SERVER=http://algorand-devnet
 64          - ALGO_INDEXER_PORT=8980
-65      reach-app-tut-8-CFX-devnet:
+65      reach-app-tut-4-CFX-devnet:
 66        <<: *app-base
 67        depends_on:
 68          - devnet-cfx
@@ -96,7 +98,7 @@ First, let’s look at the tut-4/docker-compose.yml file:
 72          - CFX_DEBUG
 73          - CFX_NODE_URI=http://devnet-cfx:12537
 74          - CFX_NETWORK_ID=999
-75      reach-app-tut-8-CFX-live:
+75      reach-app-tut-4-CFX-live:
 76        <<: *app-base
 77        environment:
 78          - REACH_DEBUG
@@ -104,8 +106,8 @@ First, let’s look at the tut-4/docker-compose.yml file:
 80          - CFX_DEBUG
 81          - CFX_NODE_URI
 82          - CFX_NETWORK_ID
-83      reach-app-tut-8-: *default-app
-84      reach-app-tut-8: *default-app
+83      reach-app-tut-4-: *default-app
+84      reach-app-tut-4: *default-app
 85      # After this is new!
 86      user: &user
 87        <<: *default-app
@@ -114,7 +116,7 @@ First, let’s look at the tut-4/docker-compose.yml file:
 90      bob: *user
 ```
 
-Lines 2 and 3 define a service for starting our application. Your line 3 will say tut, rather than tut-8, if you’ve stayed in the same directory througout the tutorial.
+Lines 2 and 3 define a service for starting our application. Your line 3 will say tut, rather than tut-4, if you’ve stayed in the same directory througout the tutorial.
 
 Lines 5 and 6 define the Reach private developer test network service for Conflux.
 
@@ -122,9 +124,9 @@ Lines 7 and 8 define the Reach private developer test network service for Ethere
 
 Lines 9 through 26 define the Reach private developer test network service for Algorand.
 
-Lines 27 through 82 define services that allow the application to be run with different networks; including line 27, which defines reach-app-tut-8-ETH-live for connecting to a live network.
+Lines 27 through 82 define services that allow the application to be run with different networks; including line 27, which defines reach-app-tut-4-ETH-live for connecting to a live network.
 
-We’ll also add lines 85 through 90 to define a player service that is our application with an open standard input, as well as two instances named alice and bob.
+We’ll also add lines 85 through 90 to define a player service that represents our application with an open standard input, as well as two instances named alice and bob.
 
 With these in place, we can run
 ```
@@ -162,11 +164,11 @@ We’ll modify the tut-4/Makefile to have commands to run each of these variants
 32        docker-compose run --rm bob
 ```
 
-However, if we try to run either of these, it will do the same thing it always has: create test accounts for each user and simulate a random microblog application. Let’s modify the JavaScript frontend and make them interactive.
+However, if we try to run either of these at this point, each will do the same thing as before: create test accounts for each user and simulate a random microblog application. Let’s modify the JavaScript frontend to make them interactive.
 
 —
 
-We’ll start from scratch and show every line of the program again. You’ll see a lot of similarity between this and the last version, but for completeness, we’ll show every line.
+We’ll start from scratch and show every line of the program again. You’ll note a lot of similarity between this and the last version, but for completeness, we’ll show every line.
 
 ```
 1    import { loadStdlib } from '@reach-sh/stdlib';
@@ -190,7 +192,7 @@ Line 3 is new and imports a helpful library for simple console applications call
 12    const who = isAlice ? 'Alice' : 'Bob';
 ```
 
-Lines 7 through 10 ask the question whether they are playing as Alice and expect a "Yes" or "No" answer. ask presents a prompt and collects a line of input until its argument does not error. yesno errors if it is not given "y" or "n".
+Lines 7 through 10 ask the question whether they are playing as Alice and expect a "Yes" or "No" answer. `ask` presents a prompt and collects a line of input until its argument does not error. `yesno` captures errors if it is not given "y" or "n".
 
 ```
 13    
@@ -212,7 +214,7 @@ Lines 7 through 10 ask the question whether they are playing as Alice and expect
 29    }
 ```
 
-Lines 16 through 19 present the user with the choice of creating a test account if they can or inputing a secret to load an existing account.
+Lines 16 through 19 present the user with the options to either creating a test account or input a secret passphrase to load an existing account.
 
 Line 21 creates the test account as before.
 
@@ -279,7 +281,7 @@ Next we define a few helper functions and start the participant interaction inte
 81    }
 ```
 
-Next, we define the `createStream` method or the `seeStream` method, depending on if we are Alice or not.
+Next, we define the `createStream` method or the `seeStream` method, depending on whether we are Alice or not.
 
 ```
 83    if(isAlice){

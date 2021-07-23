@@ -42,6 +42,7 @@ import * as backend from './build/index.main.mjs';
           return random;
       }
     }),
+
     backend.Bob(ctcBob, {
       ...User(),
       seeStream: (streamName) => {

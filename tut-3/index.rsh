@@ -52,7 +52,7 @@ export const main = Reach.App(
       
 
       //loop variable
-      var status = CONTINUE; 
+      var status = CONTINUE;
       
       //loop invariant; no transfer of currency to and from the contract
       invariant(balance() == 0); 

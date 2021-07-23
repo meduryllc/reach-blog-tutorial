@@ -8,7 +8,7 @@ First, we need to modify [participant interact interface](https://docs.reach.sh/
 2
 3 		//Poster interface; poster of a stream can only execute these methods
 4 	const Poster = {
-5 		createStream : Fun([], Bytes(30))
+5 		createStream : Fun([], Bytes(30)),
 6 		streamName : Bytes(30),
 7 		post: Fun([], Bytes(140))
 8 	};
@@ -24,7 +24,7 @@ Similarly, we modify the subscriber interface to allow viewing the posts created
 9 //Subscriber interface; subscriber of a stream can only execute these methods
 10 const Subscriber = {
 11 		seeStream: Fun([Bytes(30)], Bool),
-12 		seeMessage: Fun([Bytes(140), Bytes(30), Address, Null)
+12 		seeMessage: Fun([Bytes(140), Bytes(30), Address], Null)
 13 }
 
 ```
@@ -93,6 +93,7 @@ Next, in our [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%2
 37
 38		})
 39	]);
+40  })();
 
 ```
 Lines 22 through 26 define the `post` method for Alice to send the post to the reach program.  
@@ -111,4 +112,6 @@ Bob noticed that a stream 'Microblog on Algorand' was created and is subscribing
 Alice is posting 'This is my first post on this microblog'
 Bob saw that Alice with address 0xAE49863cef5A2CC3163a25218262e66a1e2a5ED1 has posted 'This is my first post on this microblog' to the stream 'Microblog on Algorand'
 ```
+__Note__: Use `export REACH_CONNECTOR_MODE=ALGO` to run this app on Algorand test network. Execution on Algorand is expected to be slower than on Ethereum dev net and it may take upto 30 seconds to complete.
+
 In the next step, we will use a while loop to enable posting to the same stream. 
