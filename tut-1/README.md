@@ -14,7 +14,7 @@ In this tutorial, the creator of the stream is expected to name the stream and s
 7 };
 8
 ```
-Lines 4 through 7 define a  [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29)  for the creator of the stream. In this case, the interact interface provides: 1) one method: `createStream()`, that returns a string of no more than 30 characters, and 2) a constant `streamName`, used to set the name of the stream.
+Lines 4 through 7 define a [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29) for the creator of the stream. In this case, the interact interface provides: 1) one method: `createStream()`, that returns a string of no more than 30 characters, and 2) a constant `streamName`, used to set the name of the stream.
 
 The subscriber can view the name of the stream before subscribing to it by invoking the `seeStreamName()` method.
 
@@ -25,7 +25,7 @@ The subscriber can view the name of the stream before subscribing to it by invok
 12 }
 ```
 
-Lines 10 through 12 define a  [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29)  for the subscriber of the stream. In this case, the interact interface provides one method:  `seeStream()`, which sends the name of the stream to the [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29).
+Lines 10 through 12 define a [participant interact interface](https://docs.reach.sh/ref-programs-appinit.html#%28tech._participant._interact._interface%29) for the subscriber of the stream. In this case, the interact interface provides one method: `seeStream()`, which sends the name of the stream to the [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29).
 
 ```
 16 export  const  main = Reach.App(
@@ -39,9 +39,9 @@ Lines 10 through 12 define a  [participant interact interface](https://docs.reac
 42		}
 43 );
 ```
-[//]: <> (This below line doesn't make sense )
+[//]: <> (This below line doesn't make sense)
 
-Line 19 uses this interface for both participants. Because of this line, [interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29) in the rest of the program will be bound to an object with methods corresponding to these actions, which will connect to the  [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29)  of the corresponding participant.
+Line 19 uses this interface for both participants. Because of this line, [interact](https://docs.reach.sh/ref-programs-local.html#%28reach._%28%28interact%29%29%29) in the rest of the program will be bound to an object with methods corresponding to these actions, which will connect to the  [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29) of the corresponding participant.
 
 Before continuing with the Reach application, let’s move over to the JavaScript interface and implement these methods in our [frontend](https://docs.reach.sh/ref-model.html#%28tech._frontend%29).
 
